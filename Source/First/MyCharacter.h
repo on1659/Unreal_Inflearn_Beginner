@@ -58,6 +58,10 @@ private:
 	int32 AttackIndex = 0;
 
 
+	UPROPERTY(VisibleAnywhere);
+	UStaticMeshComponent* Weapon;
+
+	
 public:
 	UPROPERTY();
 	float UpDownValue = 0.f;
