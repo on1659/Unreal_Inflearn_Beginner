@@ -45,9 +45,14 @@
 SourceArt/**/*.png
 SourceArt/**/*.tga
 
+
+#ParagonGreystone Assets
+Content/ParagonGreystone/*
+
 # Binary Files
 Binaries/*
 Plugins/*/Binaries/*
+
 
 # Builds
 Build/*
