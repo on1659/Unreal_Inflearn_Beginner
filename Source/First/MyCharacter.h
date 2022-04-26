@@ -39,8 +39,11 @@ public:
 	UFUNCTION()
 	void onAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
 
+public:
+	void AttachWepaon();
+
 private:
-	UPROPERTY(VisibleAnywhere);
+	UPROPERTY(VisibleAnywhere); 
 	class USpringArmComponent* SpringArm;
 
 	UPROPERTY(VisibleAnywhere);

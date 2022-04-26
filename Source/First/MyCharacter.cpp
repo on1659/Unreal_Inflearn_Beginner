@@ -55,7 +55,10 @@ AMyCharacter::AMyCharacter()
 void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+} 
 
+void AMyCharacter::AttachWepaon()
+{
 	FName WeaponSocket(TEXT("hand_l_socket"));
 	auto CurrentWeapon = GetWorld()->SpawnActor<AMyWeapon>(FVector::ZeroVector, FRotator::ZeroRotator);
 
@@ -63,7 +66,7 @@ void AMyCharacter::BeginPlay()
 	{
 		CurrentWeapon->AttachToComponent(GetMesh(),FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponSocket);
 	}
-} 
+}
 
 void AMyCharacter::PostInitializeComponents ()
 {
@@ -189,3 +192,4 @@ void AMyCharacter::onAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted
 {
 	isAttacking = false;
 }
+
