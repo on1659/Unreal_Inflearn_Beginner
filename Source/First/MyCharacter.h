@@ -37,7 +37,9 @@ public:
 	void AttackCheck();
 
 	UFUNCTION()
-	void onAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
+	void OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted);
+
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
 public:
 	void AttachWepaon();
@@ -64,7 +66,9 @@ private:
 	UPROPERTY(VisibleAnywhere);
 	UStaticMeshComponent* Weapon;
 
-	
+	UPROPERTY(VisibleAnywhere);
+	class UMyStatsComponent* Stat;
+
 public:
 	UPROPERTY();
 	float UpDownValue = 0.f;

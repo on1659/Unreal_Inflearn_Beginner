@@ -56,9 +56,5 @@ void AMyWeapon::OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 	{
 		FName WeaponSocket(TEXT("hand_l_socket"));
 		AttachToComponent(MyCharacter->GetMesh(),FAttachmentTransformRules::SnapToTargetIncludingScale, WeaponSocket);
-
-		UGamePlayStatic::
-		
-
 	}
 }

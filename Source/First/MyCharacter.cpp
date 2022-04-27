@@ -9,6 +9,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "DrawDebugHelpers.h"
+#include "MyStatsComponent.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -35,20 +36,7 @@ AMyCharacter::AMyCharacter()
 		GetMesh()->SetSkeletalMesh(SM.Object);
 	}
 
-	/*
-		FName WeaponSocket(_TEXT("hand_l_socket"));
-		if (GetMesh()->DoesSocketExist(WeaponSocket))
-		{
-			Weapon = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WEAPON"));
-			static ConstructorHelpers::FObjectFinder<UStaticMesh> SW(TEXT("StaticMesh'/Game/ParagonGreystone/FX/Meshes/Heroes/Greystone/SM_Greystone_Blade_01.SM_Greystone_Blade_01'"));
-			if (SW.Succeeded())
-			{
-				Weapon->SetStaticMesh(SW.Object);
-			}
-
-			Weapon->SetupAttachment(GetMesh(), WeaponSocket);
-		}
-	*/
+	Stat = CreateDefaultSubobject<UMyStatsComponent>(TEXT("STAT"));
 }
 
 // Called when the game starts or when spawned
@@ -75,7 +63,7 @@ void AMyCharacter::PostInitializeComponents ()
 	AnimInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
 	if (AnimInstance)
 	{
-		AnimInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::onAttackMontageEnded);
+		AnimInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackMontageEnded);
 		AnimInstance->OnAttackHit.AddUObject(this, &AMyCharacter::AttackCheck);
 	} 
 
@@ -146,6 +134,7 @@ void AMyCharacter::Attack()
 	AttackIndex = (AttackIndex + 1) % 3;
 	isAttacking = true;
 }
+
 void AMyCharacter::AttackCheck()
 {
 	FHitResult HitResult;
@@ -183,13 +172,22 @@ void AMyCharacter::AttackCheck()
 
 	if (bResult && HitResult.Actor.IsValid())
 	{
-		UE_LOG(LogTemp, Log, TEXT("Hit Actor : %d"), *HitResult.Actor->GetName());
+		UE_LOG(LogTemp, Log, TEXT("Hit Actor : %d"), *HitResult.Actor->GetName())
+
+		FDamageEvent DamageEvent;
+ 		HitResult.Actor->TakeDamage(Stat->GetAttack(), DamageEvent, GetController(), this);
 	}
 
 }
 
-void AMyCharacter::onAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
+void AMyCharacter::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 	isAttacking = false;
+}
+
+float AMyCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	Stat->OnAttacked(DamageAmount);
+	return DamageAmount;
 }
 
