@@ -22,7 +22,6 @@ UMyAnimInstance::UMyAnimInstance()
 			UE_LOG(LogTemp, Error, TEXT("UMyAnimInstance AM Nullptr"));
 		}
 	}
-
 }
 
 void UMyAnimInstance::NativeUpdateAnimation(float DelltaSecond)
