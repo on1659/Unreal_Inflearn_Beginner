@@ -69,6 +69,10 @@ private:
 	UPROPERTY(VisibleAnywhere);
 	class UMyStatsComponent* Stat;
 
+
+	UPROPERTY(VisibleAnywhere);
+	class UWidgetComponent* HpBar;
+
 public:
 	UPROPERTY();
 	float UpDownValue = 0.f;

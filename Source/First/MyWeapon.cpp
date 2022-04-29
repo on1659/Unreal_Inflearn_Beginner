@@ -49,7 +49,7 @@ void AMyWeapon::PostInitializeComponents()
 void AMyWeapon::OnCharacterOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp
 	, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp, Log, TEXT("over lapped)"));
+	// UE_LOG(LogTemp, Log, TEXT("over lapped)"));
 
 	AMyCharacter* MyCharacter = Cast<AMyCharacter>(OtherActor);
 	if (MyCharacter)
