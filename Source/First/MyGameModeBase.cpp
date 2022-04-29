@@ -9,7 +9,7 @@ AMyGameModeBase::AMyGameModeBase()
 {
 	DefaultPawnClass = AMyCharacter::StaticClass();
 
-	static ConstructorHelpers::FClassFinder<ACharacter> BP_Char(TEXT("Blueprint'/Game/BluePrints/BP_MyCharacter.BP_MyCharacter_C'"));
+	static ConstructorHelpers::FClassFinder<ACharacter> BP_Char(TEXT("Blueprint'/Game/BluePrints/BP_MyCharacterS.BP_MyCharacterS_C'"));
 	if (BP_Char.Succeeded())
 	{
 		DefaultPawnClass = BP_Char.Class;

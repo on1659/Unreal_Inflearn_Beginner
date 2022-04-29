@@ -165,8 +165,8 @@ void AMyCharacter::AttackCheck()
 	FHitResult HitResult;
 	FCollisionQueryParams Params(NAME_None, false, this);
 
-	float AttackRange = 1000.f;
-	float AttackRadius = 500.f; 
+	float AttackRange = 100.f;
+	float AttackRadius = 50.f; 
 	
 	bool bResult = GetWorld()->SweepSingleByChannel(
 		OUT HitResult,

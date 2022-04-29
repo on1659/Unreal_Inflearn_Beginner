@@ -17,7 +17,7 @@ void UMyGameInstance::Init()
 {
 	Super::Init();
 
-	UE_LOG(LogTemp, Warning, TEXT("MyGameInstance"), GetStatData(1)->Attack);
+	UE_LOG(LogTemp, Warning, TEXT("MyGameInstance Attack [%d]"), GetStatData(1)->Attack);
 }
 
 

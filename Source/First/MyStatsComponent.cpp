@@ -10,6 +10,7 @@
 UMyStatsComponent::UMyStatsComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
+	bWantsInitializeComponent = true;
 	Level = 1;
 }
 
@@ -22,10 +23,13 @@ void UMyStatsComponent::BeginPlay()
 void UMyStatsComponent::InitializeComponent()
 {
 	Super::InitializeComponent();
+
+	SetLevel(Level);
 }
 
 void UMyStatsComponent::OnAttacked(float DamageAmount)
 {
+	UE_LOG(LogTemp, Warning, TEXT("hp %d"), DamageAmount);
 	SetHp(GetHp() - DamageAmount);
 }
 
@@ -37,7 +41,7 @@ void UMyStatsComponent::SetLevel(const int32 _Level)
 		auto StatData = MyGameInstance->GetStatData(Level);
 		if (StatData)
 		{
-			SetLevel(StatData->Level);
+			Level = StatData->Level;
 			SetHp(StatData->MaxHp);
 			SetMaxHp(StatData->MaxHp);
 			SetAttack(StatData->Attack);
@@ -51,10 +55,6 @@ void UMyStatsComponent::SetHp(const int32 _Hp)
 	if (Hp < 0)
 	{
 		Hp = 0;
-	}
-	if (Hp > MaxHp)
-	{
-		Hp = MaxHp;
 	}
 
 	OnHpChanged.Broadcast();
