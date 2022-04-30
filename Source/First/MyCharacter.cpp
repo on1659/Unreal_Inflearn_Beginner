@@ -12,6 +12,7 @@
 #include "MyStatsComponent.h"
 #include "Components/WidgetComponent.h"
 #include "MyCharacerHpWidget.h"
+#include "MyAIController.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -52,6 +53,9 @@ AMyCharacter::AMyCharacter()
 		HpBar->SetDrawSize(FVector2D(200.f, 50.f));
 	}
 
+	UE_LOG(LogTemp, Warning, TEXT("Call AIControllerClass = AMyAIController::StaticClass()"));
+	AIControllerClass = AMyAIController::StaticClass();
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
 // Called when the game starts or when spawned
@@ -92,7 +96,6 @@ void AMyCharacter::PostInitializeComponents ()
 	{
 		HpWidget->BindHp(Stat);
 	}
-
 }
 
 // Called every frame
