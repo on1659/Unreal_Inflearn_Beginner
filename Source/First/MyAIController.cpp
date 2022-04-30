@@ -31,8 +31,15 @@ void AMyAIController::OnPossess(APawn* lnPawn)
 {
 	Super::OnPossess(lnPawn);
 
-	UE_LOG(LogTemp, Warning, TEXT("Call AMyAIController::OnPossess()"));
-	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AMyAIController::RandomMove, 3.0f, true);
+	// UE_LOG(LogTemp, Warning, TEXT("Call AMyAIController::OnPossess()"));
+	// GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &AMyAIController::RandomMove, 3.0f, true);
+	if (UseBlackboard(BlackBoardData, Blackboard))
+	{
+		if (RunBehaviorTree(BehaviorTree))
+		{
+			// TODO..
+		}
+	}
 }
 
 
@@ -40,8 +47,8 @@ void AMyAIController::OnUnPossess()
 {
 	Super::OnUnPossess();
 
-	UE_LOG(LogTemp, Warning, TEXT("Call AMyAIController::OnUnPossess()"));
-	GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
+	// UE_LOG(LogTemp, Warning, TEXT("Call AMyAIController::OnUnPossess()"));
+	// GetWorld()->GetTimerManager().ClearTimer(TimerHandle);
 }
 
 void AMyAIController::RandomMove()

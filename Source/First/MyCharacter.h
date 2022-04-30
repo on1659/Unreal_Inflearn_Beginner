@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "MyCharacter.generated.h"
 
+DECLARE_MULTICAST_DELEGATE(FOnAttackEnd);
+
 UCLASS()
 class FIRST_API AMyCharacter : public ACharacter
 {
@@ -44,6 +46,7 @@ public:
 public:
 	void AttachWepaon();
 
+
 private:
 	UPROPERTY(VisibleAnywhere); 
 	class USpringArmComponent* SpringArm;
@@ -73,10 +76,14 @@ private:
 	UPROPERTY(VisibleAnywhere);
 	class UWidgetComponent* HpBar;
 
+
+
 public:
 	UPROPERTY();
 	float UpDownValue = 0.f;
 
 	UPROPERTY();
 	float LeftRightValue = 0.f;
+
+	FOnAttackEnd OnAttackEnd;
 };
