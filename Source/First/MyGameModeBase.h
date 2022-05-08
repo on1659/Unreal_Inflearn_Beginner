@@ -16,4 +16,10 @@ class FIRST_API AMyGameModeBase : public AGameModeBase
 
 public:
 	AMyGameModeBase();
+	
+	UPROPERTY()
+	TSubclassOf<UUserWidget> HUD_Class;
+
+	UPROPERTY()
+	UUserWidget* CurrentWidget;
 };
