@@ -2,18 +2,33 @@
 
 
 #include "MainHud.h"
-
+#include "MyStatsComponent.h"
+#include "Components/ProgressBar.h"
+#include "MyGameInstance.h"
+#include "Kismet/GameplayStatics.h"
 
 void UMainHud::BindHp(class UMyStatsComponent* StatComp)
 {
 	CurrentStatComp = StatComp;
-	StatComp->OnHpChanged.AddUObject(this, &UMyCharacerHpWidget::UpdateHp);
+	if (StatComp)
+	{
+		StatComp->OnHpChanged.AddUObject(this, &UMainHud::UpdateHp);
+	}
 }
 
+void UMainHud::InitializeComponent()
+{
+	auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (MyGameInstance)
+	{
+		BindHp(MyGameInstance->GetPlayerStatsComponet());
+	}
+}
 void UMainHud::UpdateHp()
 {
 	if (CurrentStatComp.IsValid())
-	{
-		PB_HpBar->SetPercent(CurrentStatComp->GetHpRatio());
+	{	
+		UE_LOG(LogTemp, Warning, TEXT("Percent "), CurrentStatComp->GetHpRatio());
+		PB_HPGauge->SetPercent(CurrentStatComp->GetHpRatio());
 	}
 }

@@ -23,7 +23,7 @@ protected:
 
 	virtual void PostInitializeComponents() override;
 
-public:	
+public:		
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -69,14 +69,14 @@ private:
 	UPROPERTY(VisibleAnywhere);
 	UStaticMeshComponent* Weapon;
 
-	UPROPERTY(VisibleAnywhere);
-	class UMyStatsComponent* Stat;
-
 
 	UPROPERTY(VisibleAnywhere);
 	class UWidgetComponent* HpBar;
 
+	UPROPERTY(VisibleAnywhere);
+	class UWidgetComponent* HudBar;
 
+	class UMyStatsComponent* Stat;
 
 public:
 	UPROPERTY();
@@ -86,4 +86,6 @@ public:
 	float LeftRightValue = 0.f;
 
 	FOnAttackEnd OnAttackEnd;
+
+	class UMyStatsComponent* GetStat();
 };

@@ -8,7 +8,10 @@
 void UMyCharacerHpWidget::BindHp(class UMyStatsComponent* StatComp)
 {
 	CurrentStatComp = StatComp;
-	StatComp->OnHpChanged.AddUObject(this, &UMyCharacerHpWidget::UpdateHp);
+	if (StatComp)
+	{
+		StatComp->OnHpChanged.AddUObject(this, &UMyCharacerHpWidget::UpdateHp);
+	}
 }
 
 void UMyCharacerHpWidget::UpdateHp()

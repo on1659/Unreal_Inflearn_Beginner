@@ -10,7 +10,6 @@ UMyGameInstance::UMyGameInstance()
 	{
 		MyStats = Data.Object;
 	}
-
 }
 
 void UMyGameInstance::Init()
@@ -24,4 +23,14 @@ void UMyGameInstance::Init()
 FMyCharcaterData* UMyGameInstance::GetStatData(int32 Level)
 {
 	return MyStats->FindRow<FMyCharcaterData>(*FString::FromInt(Level), TEXT(""));
+}
+
+void UMyGameInstance::SetPlayerStatsComponet(UMyStatsComponent* StatComp)
+{
+	PlayerStat = StatComp;
+}
+
+UMyStatsComponent* UMyGameInstance::GetPlayerStatsComponet()
+{
+	return PlayerStat;
 }

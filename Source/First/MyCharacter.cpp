@@ -13,6 +13,12 @@
 #include "Components/WidgetComponent.h"
 #include "MyCharacerHpWidget.h"
 #include "MyAIController.h"
+#include "MainHud.h"
+
+#include "MyGameInstance.h"
+#include "MyGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
+
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -38,8 +44,23 @@ AMyCharacter::AMyCharacter()
 	{
 		GetMesh()->SetSkeletalMesh(SM.Object);
 	}
-
+	
 	Stat = CreateDefaultSubobject<UMyStatsComponent>(TEXT("STAT"));
+	auto MyGameInstance = Cast<UMyGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	if (MyGameInstance)
+	{
+		MyGameInstance->SetPlayerStatsComponet(Stat);
+	}
+
+	auto MyGameMode = Cast<AMyGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	if (MyGameMode)
+	{
+		auto HpWidget = Cast<UMainHud>(MyGameMode->GetCurrentHudWidget());
+		if (HpWidget)
+		{
+			HpWidget->BindHp(Stat);
+		}
+	}
 
 	HpBar = CreateDefaultSubobject<UWidgetComponent>(TEXT("HPBAR"));
 	HpBar->SetupAttachment(GetMesh());
@@ -96,6 +117,8 @@ void AMyCharacter::PostInitializeComponents ()
 	{
 		HpWidget->BindHp(Stat);
 	}
+
+
 }
 
 // Called every frame
@@ -222,3 +245,8 @@ float AMyCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEve
 	return DamageAmount;
 }
 
+
+UMyStatsComponent* AMyCharacter::GetStat()
+{
+	return Stat;
+}

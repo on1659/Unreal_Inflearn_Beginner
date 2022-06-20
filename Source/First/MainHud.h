@@ -19,10 +19,16 @@ public:
 
 	void UpdateHp();
 
+	void InitializeComponent();
+
 private:
 	TWeakObjectPtr<class UMyStatsComponent> CurrentStatComp;
 
 	UPROPERTY(meta = (BindWidget))
-	class UProgressBar* PB_HpBar;
+	class UProgressBar* PB_HPGauge;
+
+
+	UPROPERTY(meta = (BindWidget))
+	class UProgressBar* PB_MPGauge;
 
 };
